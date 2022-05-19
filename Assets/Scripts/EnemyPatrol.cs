@@ -16,9 +16,17 @@ public class EnemyPatrol : MonoBehaviour
     float directionX;
     float directionY;
 
-    private void Start()
+    public GameObject Player { get => _player; }
+
+    public bool IsAttack { get => _isAttack; }
+
+    private void Awake()
     {
         _player = GameObject.FindWithTag("Player");
+    }
+
+    private void Start()
+    {
         _animator = GetComponent<Animator>();
         _waypoints = GetWaypoints();
         transform.position = _waypoints[_wayPointsIndex].position;

@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private RotationWeapon _rotationWeapon;
     private Vector2 _movement;
     
-
     private void Start()
     {
         _camera = Camera.main;
