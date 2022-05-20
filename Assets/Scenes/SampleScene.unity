@@ -3347,9 +3347,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1750267926, guid: 81540245bc67ddf4a8a37e36cc9b2986, type: 3}
+      propertyPath: _health
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750267926, guid: 81540245bc67ddf4a8a37e36cc9b2986, type: 3}
       propertyPath: _hitEffect
       value: 
       objectReference: {fileID: 7159409679723105604, guid: 370d69abfff89cc40896e581ba085df8, type: 3}
+    - target: {fileID: 1776918410, guid: 81540245bc67ddf4a8a37e36cc9b2986, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776918412, guid: 81540245bc67ddf4a8a37e36cc9b2986, type: 3}
+      propertyPath: _bulletSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5098914250044573412, guid: 81540245bc67ddf4a8a37e36cc9b2986, type: 3}
       propertyPath: m_SortingOrder
       value: 2

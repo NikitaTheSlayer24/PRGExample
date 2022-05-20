@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private RotationWeapon _rotationWeapon;
     private Vector2 _movement;
+
+    private bool _isDead = false;
     
     private void Start()
     {
@@ -31,6 +33,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+        if (!_isDead) _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void IsDead(bool value)
+    {
+        _isDead = value;
     }
 }

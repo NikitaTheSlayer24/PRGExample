@@ -13,8 +13,9 @@ public class EnemyPatrol : MonoBehaviour
     private List<Transform> _waypoints;
     private int _wayPointsIndex = 0;
     private bool _isAttack = false;
-    float directionX;
-    float directionY;
+    private bool _isDead = false;
+    private float directionX;
+    private float directionY;
 
     public GameObject Player { get => _player; }
 
@@ -38,6 +39,11 @@ public class EnemyPatrol : MonoBehaviour
         FollowPath();
     }
 
+    public void IsDead(bool value)
+    {
+        _isDead = value;
+    }
+
     private void Attack()
     {
         if (InAttackRangeOfPlayer())
@@ -59,7 +65,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void FollowPath()
     {
-        if (_wayPointsIndex < _waypoints.Count && !_isAttack)
+        if (_wayPointsIndex < _waypoints.Count && !_isAttack && !_isDead)
         {
             Vector3 targetPosition = _waypoints[_wayPointsIndex].position;
             float delta = _moveSpeed * Time.fixedDeltaTime;
@@ -78,10 +84,9 @@ public class EnemyPatrol : MonoBehaviour
                 _wayPointsIndex++;
             }
         }
-        else
-        {
-            _wayPointsIndex = 0;
-        }
+        else if (_isDead) return;
+        else if (_wayPointsIndex < _waypoints.Count && _isAttack) return;
+        else _wayPointsIndex = 0;
     }
 
     private List<Transform> GetWaypoints()
@@ -96,6 +101,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private bool InAttackRangeOfPlayer()
     {
+        if (_player == null) return false;
         float distanceToPlayer = Vector3.Distance(_player.transform.position, transform.position);
         return distanceToPlayer < _chaseDistance;
     }

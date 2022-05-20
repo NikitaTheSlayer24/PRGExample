@@ -36,6 +36,8 @@ public class EnemyShooting : MonoBehaviour
     {
         if (_enemyPatrol.IsAttack)
         {
+            if (_enemyPatrol.Player == null) return;
+
             _bullet = Instantiate(_bulletPrefab, _firePoint.position, Quaternion.identity);
 
             _positionOfPlayerAtTimeOfAttack = _enemyPatrol.Player.transform.position;

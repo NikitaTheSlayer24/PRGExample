@@ -1,10 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] private int _health = 50;
+
+    private Animator _animator;
+    private EnemyPatrol _enemyPatrol;
+    private PlayerMovement _playerMovement;
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+        _enemyPatrol = GetComponent<EnemyPatrol>();
+        _playerMovement = GetComponent<PlayerMovement>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -30,7 +40,16 @@ public class Health : MonoBehaviour
         if (_health <= 0)
         {
             Debug.Log("Убит");
-            Destroy(gameObject);
+            StartCoroutine(DestroyObject());
+            _enemyPatrol?.IsDead(true);
+            _playerMovement?.IsDead(true);
+            _animator.SetTrigger("IsDead");
         }
+    }
+
+    private IEnumerator DestroyObject()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Destroy(gameObject);
     }
 }
