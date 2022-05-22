@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private int _health = 50;
+    [SerializeField] private int _maxHealth = 50;
+    private int _currentHealth;
+
+    public event Action<float> HealthChanged;
 
     private Animator _animator;
     private EnemyPatrol _enemyPatrol;
@@ -14,6 +18,8 @@ public class Health : MonoBehaviour
         _animator = GetComponent<Animator>();
         _enemyPatrol = GetComponent<EnemyPatrol>();
         _playerMovement = GetComponent<PlayerMovement>();
+
+        _currentHealth = _maxHealth; 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,24 +33,26 @@ public class Health : MonoBehaviour
         }
     }
 
-    private int GetHelath()
-    {
-        return _health;
-    }
-
     private void TakeDamage (int damage)
     {
-        _health -= damage;
-        Debug.Log("Осталось " + _health + " здоровья");
+        _currentHealth -= damage;
+        Debug.Log("Осталось " + _currentHealth + " здоровья");
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
             Debug.Log("Убит");
             StartCoroutine(DestroyObject());
             _enemyPatrol?.IsDead(true);
             _playerMovement?.IsDead(true);
             _animator.SetTrigger("IsDead");
+            HealthChanged?.Invoke(0);
         }
+        else
+        {
+            float _currentHealthAsPercent = _currentHealth / (float)_maxHealth;
+            HealthChanged?.Invoke(_currentHealthAsPercent);
+        }
+
     }
 
     private IEnumerator DestroyObject()

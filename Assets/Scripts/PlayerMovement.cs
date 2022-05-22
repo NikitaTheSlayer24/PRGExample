@@ -6,18 +6,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private RotationWeapon _weaponPrefab;
 
     private Rigidbody2D _rb;
-    private Camera _camera;
     private Animator _animator;
-    private RotationWeapon _rotationWeapon;
     private Vector2 _movement;
 
     private bool _isDead = false;
-    
+
     private void Start()
     {
-        _camera = Camera.main;
         _animator = GetComponent<Animator>();
-        _rotationWeapon = GetComponent<RotationWeapon>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -28,12 +24,21 @@ public class PlayerMovement : MonoBehaviour
 
         _animator.SetFloat("Horizontal", _weaponPrefab.MouseDirection.x);
         _animator.SetFloat("Vertical", _weaponPrefab.MouseDirection.y);
-        _animator.SetFloat("Speed", _movement.sqrMagnitude);        
+        _animator.SetFloat("Speed", _movement.sqrMagnitude);
     }
 
     private void FixedUpdate()
     {
-        if (!_isDead) _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+        if (!_isDead || _weaponPrefab == null)
+        {
+            Debug.Log(_isDead);
+
+            _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            Destroy(_weaponPrefab.gameObject);
+        }
     }
 
     public void IsDead(bool value)
