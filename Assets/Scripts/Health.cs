@@ -5,7 +5,9 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int _maxHealth = 50;
+    [SerializeField] private int _healthPoint = 20;
     private int _currentHealth;
+    float _currentHealthAsPercent;
 
     public event Action<float> HealthChanged;
 
@@ -21,7 +23,14 @@ public class Health : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         _treantEnemy = GetComponent<TreantEnemy>();
 
-        _currentHealth = _maxHealth; 
+        _currentHealth = _maxHealth;
+
+        EventManager.HearthDestroy += GetHealthPoint;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.HearthDestroy -= GetHealthPoint;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -33,6 +42,13 @@ public class Health : MonoBehaviour
             TakeDamage(damageDealer.GetDamage());
             damageDealer.Hit();
         }
+    }
+
+    private void GetHealthPoint()
+    {
+        if (_currentHealth >= _maxHealth) return;
+        _currentHealth += _healthPoint;
+        ChangeHealthbar();
     }
 
     private void TakeDamage (int damage)
@@ -52,10 +68,14 @@ public class Health : MonoBehaviour
         }
         else
         {
-            float _currentHealthAsPercent = _currentHealth / (float)_maxHealth;
-            HealthChanged?.Invoke(_currentHealthAsPercent);
+            ChangeHealthbar();
         }
+    }
 
+    private void ChangeHealthbar()
+    {
+        _currentHealthAsPercent = _currentHealth / (float)_maxHealth;
+        HealthChanged?.Invoke(_currentHealthAsPercent);
     }
 
     private IEnumerator DestroyObject()

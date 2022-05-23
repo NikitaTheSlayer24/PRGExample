@@ -6,8 +6,11 @@ public class Player : MonoBehaviour
     {
         if (collision.TryGetComponent(out Coin coin))
         {
-            Debug.Log("Подобрали монетку");
             coin.Destroy();
+        }
+        else if (collision.TryGetComponent(out HealthPoint healthPoint))
+        {
+            healthPoint.Destroy();
         }
     }
 }
