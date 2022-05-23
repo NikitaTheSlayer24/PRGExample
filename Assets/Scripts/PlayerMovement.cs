@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isDead || _weaponPrefab == null)
         {
-            Debug.Log(_isDead);
-
             _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
         }
         else

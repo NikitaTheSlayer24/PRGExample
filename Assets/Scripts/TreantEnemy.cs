@@ -1,27 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TreantEnemy : MonoBehaviour, IDamageable
+public class TreantEnemy : MonoBehaviour
 {
-    [SerializeField] private int _maxHealth = 20;
+    [SerializeField] private GameObject _coinPrefab;
 
-    private int _currentHealth;
-
-    private void Start()
+    public void Destroy()
     {
-        _currentHealth = _maxHealth;
-    }
-
-    public void ApplyDamage(int damageValue)
-    {
-        _currentHealth -= damageValue;
-        Debug.Log("У злощавого дерева осталось " + _currentHealth + " здоровья");
-
-        if (_currentHealth <= 0)
-        {
-            Debug.Log("Злощавое дерево повержено!");
-            Destroy(gameObject);
-        }
+        Instantiate(_coinPrefab, transform.position, Quaternion.identity);
     }
 }

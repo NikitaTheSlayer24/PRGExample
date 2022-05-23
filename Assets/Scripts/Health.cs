@@ -12,12 +12,14 @@ public class Health : MonoBehaviour
     private Animator _animator;
     private EnemyPatrol _enemyPatrol;
     private PlayerMovement _playerMovement;
+    private TreantEnemy _treantEnemy;
 
     private void Start()
     {
         _animator = GetComponent<Animator>();
         _enemyPatrol = GetComponent<EnemyPatrol>();
         _playerMovement = GetComponent<PlayerMovement>();
+        _treantEnemy = GetComponent<TreantEnemy>();
 
         _currentHealth = _maxHealth; 
     }
@@ -46,6 +48,7 @@ public class Health : MonoBehaviour
             _playerMovement?.IsDead(true);
             _animator.SetTrigger("IsDead");
             HealthChanged?.Invoke(0);
+            _treantEnemy.Destroy();
         }
         else
         {
