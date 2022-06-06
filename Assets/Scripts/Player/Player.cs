@@ -1,7 +1,18 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private LevelManager _levelManager;
+    private Bullet _bullet;
+
+    private void Start()
+    {
+        _levelManager = FindObjectOfType<LevelManager>();
+    }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Coin coin))
@@ -12,5 +23,10 @@ public class Player : MonoBehaviour
         {
             healthPoint.Destroy();
         }
+    }
+
+    public void Died()
+    {
+        _levelManager.LoadGameOver();
     }
 }

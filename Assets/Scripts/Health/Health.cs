@@ -3,18 +3,21 @@ using System.Collections;
 using UnityEngine;
 
 public class Health : MonoBehaviour
-{
+{   
     [SerializeField] private int _maxHealth = 50;
+    [SerializeField] private int _currentHealth;
     [SerializeField] private int _healthPoint = 20;
-    private int _currentHealth;
-    float _currentHealthAsPercent;
-
-    public event Action<float> HealthChanged;
 
     private Animator _animator;
     private EnemyPatrol _enemyPatrol;
     private PlayerMovement _playerMovement;
     private TreantEnemy _treantEnemy;
+    private Player _player;
+
+    public event Action<float> HealthChanged;
+
+    private bool _isDead = false;
+    float _currentHealthAsPercent;
 
     private void Start()
     {
@@ -22,6 +25,7 @@ public class Health : MonoBehaviour
         _enemyPatrol = GetComponent<EnemyPatrol>();
         _playerMovement = GetComponent<PlayerMovement>();
         _treantEnemy = GetComponent<TreantEnemy>();
+        _player = GetComponent<Player>();
 
         _currentHealth = _maxHealth;
 
@@ -37,7 +41,7 @@ public class Health : MonoBehaviour
     {
         Bullet damageDealer = collision.GetComponent<Bullet>();
 
-        if (damageDealer != null)
+        if (damageDealer != null && !_isDead)
         {
             TakeDamage(damageDealer.GetDamage());
             damageDealer.Hit();
@@ -59,12 +63,13 @@ public class Health : MonoBehaviour
         if (_currentHealth <= 0)
         {
             Debug.Log("Убит");
-            StartCoroutine(DestroyObject());
+            _isDead = true;
             _enemyPatrol?.IsDead(true);
             _playerMovement?.IsDead(true);
             _animator.SetTrigger("IsDead");
             HealthChanged?.Invoke(0);
-            _treantEnemy.Destroy();
+            _treantEnemy?.Died();
+            _player?.Died();
         }
         else
         {
@@ -76,11 +81,5 @@ public class Health : MonoBehaviour
     {
         _currentHealthAsPercent = _currentHealth / (float)_maxHealth;
         HealthChanged?.Invoke(_currentHealthAsPercent);
-    }
-
-    private IEnumerator DestroyObject()
-    {
-        yield return new WaitForSeconds(0.6f);
-        Destroy(gameObject);
     }
 }

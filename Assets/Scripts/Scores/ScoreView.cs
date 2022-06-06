@@ -4,8 +4,14 @@ using UnityEngine.UI;
 public class ScoreView : MonoBehaviour
 {
     private Text _scoreText;
+    private ScoreKepeer _scoreKepeer;
 
     private int _score = 0;
+
+    private void Awake()
+    {
+        _scoreKepeer = FindObjectOfType<ScoreKepeer>();
+    }
 
     private void Start()
     {
@@ -22,5 +28,6 @@ public class ScoreView : MonoBehaviour
     {
         _score++;
         _scoreText.text = "Score: " + _score;
+        _scoreKepeer.ModifyScore(_score);
     }
 }

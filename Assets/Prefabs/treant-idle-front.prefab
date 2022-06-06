@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &589206773
 MonoBehaviour:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9a32bc593c3ce8478e0b87006b76ada, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pathPrefab: {fileID: 2308760468872341000, guid: 599f062656578464186af0a54463035f, type: 3}
+  _pathPrefab: {fileID: 2308760468872341000, guid: 4dd15a8fe9887c647a4a97f543aae4d0, type: 3}
   _moveSpeed: 2
   _chaseDistance: 5
 --- !u!114 &6559542832989520301
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43abe4758c43ff848877a20e97de9817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 20
+  _coinPrefab: {fileID: 7623103390631203180, guid: e939e8e02e98b6a42abec41c53d984ae, type: 3}
 --- !u!114 &5024724429829776380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 50
+  _currentHealth: 0
+  _healthPoint: 20
 --- !u!1 &7264292207866905476
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private int _damage = 10;
     [SerializeField] private GameObject _hitEffect;
+    [SerializeField] private int _damage;
 
     public int GetDamage()
     {
         return _damage;
+    }
+
+    public void Damage(int damage)
+    {
+        _damage = damage;
     }
 
     public void Hit()
@@ -19,7 +24,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.TryGetComponent(out Bullet bullet) 
+            || collision.TryGetComponent(out HealthPoint healthPoint)
+            || collision.TryGetComponent(out Coin coin)) return;
+
         GameObject effect = Instantiate(_hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.4f);
+        Hit();
     }
 }

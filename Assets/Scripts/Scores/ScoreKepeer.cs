@@ -8,18 +8,20 @@ public class ScoreKepeer : MonoBehaviour
 
     private void Awake()
     {
-        
+        ManageSingleton();
     }
 
     private void ManageSingleton()
     {
         if (_instance != null)
         {
+            Debug.Log("22");
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
+            Debug.Log("33");
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }
@@ -32,9 +34,8 @@ public class ScoreKepeer : MonoBehaviour
 
     public void ModifyScore(int value)
     {
-        _score += value;
+        _score = value;
         Mathf.Clamp(_score, 0, int.MaxValue);
-        Debug.Log(_score);
     }
 
     public void ResetScore()

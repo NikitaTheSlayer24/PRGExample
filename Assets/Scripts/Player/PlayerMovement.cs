@@ -29,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!_isDead || _weaponPrefab == null)
+        if (!_isDead )
         {
             _rb.MovePosition(_rb.position + _movement * _moveSpeed * Time.fixedDeltaTime);
         }
-        else
+        else if (_weaponPrefab != null)
         {
             Destroy(_weaponPrefab.gameObject);
         }

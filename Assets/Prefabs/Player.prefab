@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &381283553
 MonoBehaviour:
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 1776918409}
   - component: {fileID: 1776918412}
   m_Layer: 6
-  m_Name: 10
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,7 +427,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c04ff57322eb5494f9ce67e2eb9f23fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _maxHealth: 20
+  _currentHealth: 0
+  _healthPoint: 20
 --- !u!114 &8469348040226917763
 MonoBehaviour:
   m_ObjectHideFlags: 0

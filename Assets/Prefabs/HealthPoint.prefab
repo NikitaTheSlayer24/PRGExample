@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9136669231170305152}
   - component: {fileID: 4046088500596914724}
   - component: {fileID: -9132705499742274958}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
