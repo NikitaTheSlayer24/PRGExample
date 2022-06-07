@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class Shooting : MonoBehaviour
@@ -26,6 +27,8 @@ public class Shooting : MonoBehaviour
 
     private void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;  //отключение выстрелов при нажатии на инвентарь
+
         Fire();
 
         if (Input.GetButtonDown("Fire1"))

@@ -15,13 +15,11 @@ public class ScoreKepeer : MonoBehaviour
     {
         if (_instance != null)
         {
-            Debug.Log("22");
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
         {
-            Debug.Log("33");
             _instance = this;
             DontDestroyOnLoad(gameObject);
         }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Inventory : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class Inventory : MonoBehaviour
 
     public List<ItemSO> Items { get => _items; }
 
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallback;
+    //public delegate void OnItemChanged();
+    //public OnItemChanged onItemChangedCallback;
+    public event Action onItemChangedCallback;
 
     private void Awake()
     {
@@ -37,7 +39,7 @@ public class Inventory : MonoBehaviour
 
             _items.Add(item);
 
-            if (onItemChangedCallback != null) onItemChangedCallback.Invoke();
+            onItemChangedCallback?.Invoke();
         }
         return true;
     }
@@ -45,7 +47,6 @@ public class Inventory : MonoBehaviour
     public void Remove (ItemSO item)
     {
         _items.Remove(item);
-
-        if (onItemChangedCallback != null) onItemChangedCallback.Invoke();
+        onItemChangedCallback?.Invoke();
     }
 }

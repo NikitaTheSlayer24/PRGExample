@@ -2,30 +2,39 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
+    [SerializeField] private Inventory _inventory;
     [SerializeField] private Transform _itemsParent;
+    [SerializeField] private GameObject _inventoryUI;
 
-    private Inventory _inventory;
-    private InventorySlot[] _slots;
+    private InventorySlot[] slots;
 
     private void Start()
     {
         _inventory = Inventory.Instance;
         _inventory.onItemChangedCallback += UpdateUI;
 
-        _slots = _itemsParent.GetComponentsInChildren<InventorySlot>();
+        slots = _itemsParent.GetComponentsInChildren<InventorySlot>();
     }
 
-    public void UpdateUI()
+    private void Update()
     {
-        for (int i = 0; i < _slots.Length; i++)
+        if (Input.GetButtonDown("Inventory"))
+        {
+            _inventoryUI.SetActive(!_inventoryUI.activeSelf);
+        }
+    }
+
+    private void UpdateUI()
+    { 
+        for (int i = 0; i < slots.Length; i++)
         {
             if (i < _inventory.Items.Count)
             {
-                _slots[i].AddItem(_inventory.Items[i]);
+                slots[i].AddItem(_inventory.Items[i]);
             }
             else
             {
-                _slots[i].ClearSlot();
+                slots[i].ClearSlot();
             }
         }
     }
